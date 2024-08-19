@@ -1,10 +1,26 @@
 #include "package_manager/pip_adapter.hpp"
 #include <iostream>
+#include <sstream> 
 
-std::vector<Package> PipAdapter::getInstalledPackages() {
+std::vector<Package> PipAdapter::parseOutput(const std::string& output) const {
     std::vector<Package> packages;
-    // Example: Mocked data for simplicity, replace with actual `dpkg` command parsing
-    packages.push_back({"libc6", "2.31-0ubuntu9.9", "pip"});
-    packages.push_back({"libstdc++6", "10.3.0-1ubuntu1~20.04", "pip"});
+    std::istringstream iss(output);
+    std::string line;
+
+    while (std::getline(iss, line)) {
+        size_t equalSignPos = line.find("==");
+        if (equalSignPos != std::string::npos) {
+            std::string packageName = line.substr(0, equalSignPos);
+            std::string packageVersion = line.substr(equalSignPos + 2);
+
+            packages.push_back({packageName, packageVersion, "pip"});
+        }
+    }
+
+    // Debug string
+    for (auto package: packages) {
+        std::cout << package;
+    }
+
     return packages;
 }

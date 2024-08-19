@@ -1,14 +1,14 @@
 #pragma once
 #include "package_manager/package_manager_base.hpp"
 
-class PipAdapter : public PackageManagerBase {
+class DpkgAdapter : public PackageManagerBase {
 public:
-    ~PipAdapter() override = default;
+    ~DpkgAdapter() override = default;
+    // std::vector<Package> getInstalledPackages() override;
 protected:
     std::string getCommand() const override {
-        return "pip list --format=freeze";
+        return "dpkg-query -W -f='${Package} ${Version}\\n'";
     }
 
     std::vector<Package> parseOutput(const std::string& output) const override;
-    // std::vector<Package> getInstalledPackages() override;
 };

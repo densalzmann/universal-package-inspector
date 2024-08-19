@@ -1,8 +1,8 @@
 #include "gtest/gtest.h"
-#include "package_manager/apt_adapter.hpp"
+#include "package_manager/dpkg_adapter.hpp"
 
 TEST(PackageManagerTest, AptAdapterTest) {
-    AptAdapter apt;
-    auto packages = apt.getInstalledPackages();
+    DpkgAdapter dpkg;
+    auto packages = dpkg.getInstalledPackages();
     ASSERT_GT(packages.size(), 0);
 }

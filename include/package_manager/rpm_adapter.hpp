@@ -1,14 +1,13 @@
 #pragma once
 #include "package_manager/package_manager_base.hpp"
 
-class PipAdapter : public PackageManagerBase {
+class RpmAdapter : public PackageManagerBase {
 public:
-    ~PipAdapter() override = default;
+    ~RpmAdapter() override = default;
 protected:
     std::string getCommand() const override {
-        return "pip list --format=freeze";
+        return "rpm -qa --queryformat '%{NAME} %{VERSION}-%{RELEASE}\\n'";
     }
 
     std::vector<Package> parseOutput(const std::string& output) const override;
-    // std::vector<Package> getInstalledPackages() override;
 };

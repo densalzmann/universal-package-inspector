@@ -1,14 +1,13 @@
 #pragma once
 #include "package_manager/package_manager_base.hpp"
 
-class PipAdapter : public PackageManagerBase {
+class DnfAdapter : public PackageManagerBase {
 public:
-    ~PipAdapter() override = default;
+    ~DnfAdapter() override = default;
 protected:
     std::string getCommand() const override {
-        return "pip list --format=freeze";
+        return "dnf repoquery --installed --queryformat '%{name} %{version}-%{release}\\n'";
     }
 
     std::vector<Package> parseOutput(const std::string& output) const override;
-    // std::vector<Package> getInstalledPackages() override;
 };

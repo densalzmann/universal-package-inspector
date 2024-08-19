@@ -16,7 +16,12 @@ set(SOURCES
     src/filesystem_scanner.cpp
     src/conflict_analyzer.cpp
     src/report_generator.cpp
-    src/package_manager/apt_adapter.cpp
+    src/package_manager/package_manager_base.cpp
+    src/package_manager/dpkg_adapter.cpp
+    src/package_manager/rpm_adapter.cpp
+    src/package_manager/dnf_adapter.cpp
+    src/package_manager/flatpak_adapter.cpp
+    src/package_manager/snap_adapter.cpp
     src/package_manager/pip_adapter.cpp
 )
 
