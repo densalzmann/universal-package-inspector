@@ -8,6 +8,8 @@
 #include "filesystem_scanner.hpp"
 #include "conflict_analyzer.hpp"
 #include "report_generator.hpp"
+#include <memory>
+#include <vector>
 
 void CLI::parseArguments(int argc, char* argv[]) {
     // Simple argument parsing for demonstration purposes
@@ -22,29 +24,42 @@ void CLI::parseArguments(int argc, char* argv[]) {
 
 void CLI::execute() {
     if (command == "scan") {
+        // Create a vector to hold dynamically allocated adapters
+        std::vector<std::unique_ptr<PackageManagerBase>> availableAdapters;
+
         // Initialize components
-        DpkgAdapter dpkg;
-        RpmAdapter rpm;
-        DnfAdapter dnf;
-        FlatpakAdapter flatpak;
-        SnapAdapter snap;
-        PipAdapter pip;
+        std::unique_ptr<DpkgAdapter> dpkg = std::make_unique<DpkgAdapter>();
+        std::unique_ptr<RpmAdapter> rpm = std::make_unique<RpmAdapter>();
+        std::unique_ptr<DnfAdapter> dnf = std::make_unique<DnfAdapter>();
+        std::unique_ptr<FlatpakAdapter> flatpak = std::make_unique<FlatpakAdapter>();
+        std::unique_ptr<SnapAdapter> snap = std::make_unique<SnapAdapter>();
+        std::unique_ptr<PipAdapter> pip = std::make_unique<PipAdapter>();
+
+        // Check availability and add to vector if available
+        if (dpkg->isAvailable()) availableAdapters.push_back(std::move(dpkg));
+        if (rpm->isAvailable()) availableAdapters.push_back(std::move(rpm));
+        if (dnf->isAvailable()) availableAdapters.push_back(std::move(dnf));
+        if (flatpak->isAvailable()) availableAdapters.push_back(std::move(flatpak));
+        if (snap->isAvailable()) availableAdapters.push_back(std::move(snap));
+        if (pip->isAvailable()) availableAdapters.push_back(std::move(pip));
+
         FilesystemScanner fsScanner;
         ConflictAnalyzer analyzer;
         ReportGenerator reporter;
-        
-        // Perform scanning
 
-        auto dpkgPackages = dpkg.getInstalledPackages();
-        auto rpmPackages = rpm.getInstalledPackages();
-        auto dnfPackages = dnf.getInstalledPackages();
-        auto flatpakPackages = flatpak.getInstalledPackages();
-        auto snapPackages = snap.getInstalledPackages();
-        auto pipPackages = pip.getInstalledPackages();
+        std::vector<Package> allPackages;
+
+        // Perform scanning using available adapters
+        for (const auto& adapter : availableAdapters) {
+            auto packages = adapter->getInstalledPackages();
+            allPackages.insert(allPackages.end(), packages.begin(), packages.end());
+        }
+
         auto fsPackages = fsScanner.scan();
+        allPackages.insert(allPackages.end(), fsPackages.begin(), fsPackages.end());
 
         // Analyze for conflicts
-        auto conflicts = analyzer.detectConflicts(dpkgPackages, pipPackages, fsPackages);
+        auto conflicts = analyzer.detectConflicts(allPackages);
 
         // Generate report
         reporter.generateReport(conflicts, outputFormat);

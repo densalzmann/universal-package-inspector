@@ -5,6 +5,9 @@ class SnapAdapter : public PackageManagerBase {
 public:
     ~SnapAdapter() override = default;
 protected:
+    std::string getCommandName() const override {
+            return "snap";
+        }
     std::string getCommand() const override {
         return "snap list --all";
     }

@@ -5,6 +5,9 @@ class FlatpakAdapter : public PackageManagerBase {
 public:
     ~FlatpakAdapter() override = default;
 protected:
+    std::string getCommandName() const override {
+            return "flatpak";
+        }
     std::string getCommand() const override {
         return "flatpak list --columns=application,version";
     }

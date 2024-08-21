@@ -6,6 +6,9 @@ public:
     ~DpkgAdapter() override = default;
     // std::vector<Package> getInstalledPackages() override;
 protected:
+    std::string getCommandName() const override {
+            return "dpkg-query";
+        }
     std::string getCommand() const override {
         return "dpkg-query -W -f='${Package} ${Version}\\n'";
     }

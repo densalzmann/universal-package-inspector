@@ -5,8 +5,11 @@ class DnfAdapter : public PackageManagerBase {
 public:
     ~DnfAdapter() override = default;
 protected:
+    std::string getCommandName() const override {
+            return "dnf";
+        }
     std::string getCommand() const override {
-        return "dnf repoquery --installed --queryformat '%{name} %{version}-%{release}\\n'";
+        return "dnf repoquery --installed --queryformat '%{name} %{version}-%{release}'";
     }
 
     std::vector<Package> parseOutput(const std::string& output) const override;

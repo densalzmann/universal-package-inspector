@@ -10,7 +10,5 @@ struct Conflict {
 
 class ConflictAnalyzer {
 public:
-    std::vector<Conflict> detectConflicts(const std::vector<Package>& aptPackages,
-                                          const std::vector<Package>& pipPackages,
-                                          const std::vector<Package>& fsPackages);
+    std::vector<Conflict> detectConflicts(std::vector<Package>);
 };
