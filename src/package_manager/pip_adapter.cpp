@@ -16,11 +16,5 @@ std::vector<Package> PipAdapter::parseOutput(const std::string& output) const {
             packages.push_back({packageName, packageVersion, "pip"});
         }
     }
-
-    // Debug string
-    for (auto package: packages) {
-        std::cout << package;
-    }
-
     return packages;
 }

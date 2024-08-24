@@ -14,11 +14,6 @@ std::vector<Package> DpkgAdapter::parseOutput(const std::string& output) const {
 
         packages.push_back({packageName, packageVersion, "dpkg"});
     }
-    
-    // Debug string
-    for (auto package: packages) {
-        std::cout << package;
-    }
 
     return packages;
 }

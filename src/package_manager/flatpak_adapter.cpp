@@ -14,10 +14,6 @@ std::vector<Package> FlatpakAdapter::parseOutput(const std::string& output) cons
 
         packages.push_back({appName, appVersion, "flatpak"});
     }
-    // Debug string
-    for (auto package: packages) {
-        std::cout << package;
-    }
 
     return packages;
 }

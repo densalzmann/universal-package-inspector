@@ -52,6 +52,10 @@ void CLI::execute() {
         // Perform scanning using available adapters
         for (const auto& adapter : availableAdapters) {
             auto packages = adapter->getInstalledPackages();
+            // Debug string
+            for (auto package: packages) {
+                std::cout << package;
+            }
             allPackages.insert(allPackages.end(), packages.begin(), packages.end());
         }
 
