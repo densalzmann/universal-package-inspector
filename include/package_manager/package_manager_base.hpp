@@ -7,6 +7,7 @@ struct Package {
     std::string name;
     std::string version;
     std::string manager;
+    std::vector<std::string> paths;
     friend std::ostream& operator<<(std::ostream &out, Package const &cur_package);
 };
 

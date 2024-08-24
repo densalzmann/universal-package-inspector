@@ -6,4 +6,5 @@
 class ReportGenerator {
 public:
     void generateReport(const std::vector<Conflict>& conflicts, const std::string& format);
+    std::string getRecommendation(const Conflict& conflict) const;
 };
