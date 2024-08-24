@@ -60,10 +60,10 @@ void CLI::execute() {
         }
 
         auto fsPackages = fsScanner.scan();
-        // Debug string
-        for (auto package: fsPackages) {
-            std::cout << package;
-        }
+        // // Debug string
+        // for (auto package: fsPackages) {
+        //     std::cout << package;
+        // }
         allPackages.insert(allPackages.end(), fsPackages.begin(), fsPackages.end());
 
         // Analyze for conflicts
