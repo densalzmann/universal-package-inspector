@@ -1,23 +1,8 @@
-## Dev Dependencies:
-    * libgtest-dev for apt / gtest-devel for fedora
-
-## Run:
-    * ./build/upi scan text
-
-## ToDo:
-    * [x] detect available package managers
-    * [x] implement filesystem scanner
-    * [x] implement a conflict search for available package managers
-    * [x] create a suitable report generator
-    * [ ] look what package managers may in real have conflicts and what type of conflicts
-    * [ ] create a test docker container with included conflicts for e2e tests
-    * [ ] include package managers: ...
-
-# Unified Package Inspector (UPI) CLI
+# Universal Package Inspector (UPI) CLI
 
 ## Overview
 
-**Unified Package Inspector (UPI)** is an in-progress command-line tool designed to scan and analyze installed packages across multiple package managers on a Linux system. UPI aims to detect potential conflicts, such as duplicate packages, version mismatches, or file path overlaps, and generate detailed reports in various formats, such as text, JSON, or HTML.
+**Universal Package Inspector (UPI)** is an in-progress command-line tool designed to scan and analyze installed packages across multiple package managers on a Linux system. UPI aims to detect potential conflicts, such as duplicate packages, version mismatches, or file path overlaps, and generate detailed reports in various formats, such as text, JSON, or HTML.
 
 The tool currently supports the following package managers:
 
@@ -131,6 +116,23 @@ Contributions to UPI are welcome! Please follow these steps to contribute:
 4. Push to the branch (`git push origin feature/your-feature`).
 5. Create a Pull Request.
 
+## Development
+  
+### Dev Dependencies:
+    * libgtest-dev for apt / gtest-devel for fedora
+
+### Run:
+    * ./build/upi scan text
+
+### ToDo:
+    * [x] detect available package managers
+    * [x] implement filesystem scanner
+    * [x] implement a conflict search for available package managers
+    * [x] create a suitable report generator
+    * [ ] look what package managers may in real have conflicts and what type of conflicts
+    * [ ] create a test docker container with included conflicts for e2e tests
+    * [ ] include package managers: ...
+
 ## License
 
 This project is licensed under the MIT License. See the `LICENSE` file for more details.
@@ -138,3 +140,6 @@ This project is licensed under the MIT License. See the `LICENSE` file for more 
 ## Contact
 
 For support or any inquiries, please contact `den.salzmann@gmail.com`.
+
+
+
